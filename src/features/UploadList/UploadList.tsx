@@ -9,7 +9,7 @@ import uploadReducer from './reducer';
 import { SugarFileState, ErrorState } from './types';
 
 const generateErrorPayload = (error: AxiosError | Error) => {
-  let errorPayload: {
+  const errorPayload: {
     state: ErrorState;
     text: string;
     hint?: string;
