@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import '@fontsource/poppins';
 import { ThemeProvider } from '@mui/material/styles';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+
 import RollbarClient from 'clients/RollbarClient';
 import { AuthProvider } from 'providers/AuthProvider';
 
