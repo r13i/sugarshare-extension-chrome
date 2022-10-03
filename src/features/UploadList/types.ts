@@ -25,7 +25,7 @@ export type Action =
     };
 
 export type SugarFileState = {
-  file: File;
+  file: File | { name: string };
   shareableLink: string;
   uuid: string;
   upload: {
