@@ -8,6 +8,8 @@ import FileCard from './components/FileCard';
 import uploadReducer from './reducer';
 import { SugarFileState, ErrorState } from './types';
 
+const LOCAL_STORAGE_KEY = 'sugarshare.files';
+
 const generateErrorPayload = (error: AxiosError | Error) => {
   const errorPayload: {
     state: ErrorState;
@@ -52,9 +54,6 @@ const generateErrorPayload = (error: AxiosError | Error) => {
   return errorPayload;
 };
 
-const LOCAL_STORAGE_KEY = 'sugarshare.files';
-
-
 const getOnlocalStorage = (key: string) => {
   const result = window.localStorage.getItem(key) || '[]';
   return JSON.parse(result);
@@ -68,7 +67,9 @@ export default function UploadList() {
 
   React.useEffect(() => {
     const syncStateWithStorage = () => {
-      window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(files));
+      window.localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(files.map((state: SugarFileState) => ({ ...state, file: { name: state.file.name } }))));
     };
 
     syncStateWithStorage();
@@ -127,7 +128,7 @@ export default function UploadList() {
             key={file.uuid}
             data={file}
             onCancel={() => removeFile(file.uuid)}
-            onRetry={() => retryUpload(file.file, file.uuid)}
+            onRetry={() => file.file instanceof File ? retryUpload(file.file, file.uuid) : null}
           />
         ))}
       <UploadButtonBase onClick={uploadFile} />

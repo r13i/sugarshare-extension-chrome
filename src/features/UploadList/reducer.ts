@@ -9,9 +9,9 @@ export default function uploadReducer(
       const { file, uuid } = action.payload;
 
       const newFile: SugarFileState = {
-        file: file,
+        file,
+        uuid,
         shareableLink: '',
-        uuid: uuid,
         upload: {
           state: true,
           progress: 0,
@@ -23,7 +23,6 @@ export default function uploadReducer(
 
       return [newFile, ...state];
     }
-
 
     case 'RETRY_UPLOAD': {
       const { uuid } = action.payload;

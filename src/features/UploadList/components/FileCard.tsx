@@ -20,7 +20,7 @@ import settings from 'settings';
 type Props = {
   data: SugarFileState;
   onCancel: () => void;
-  onRetry: () => void;
+  onRetry: () => void | null;
 };
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -67,7 +67,7 @@ export default function FileCard({ data, onCancel, onRetry }: Props) {
         )}
       </CardContent>
       <CardActions disableSpacing sx={{ p: 0, mx: 1 }}>
-        {error.state === 'retriable' && (
+        {error.state === 'retriable' && onRetry !== null && (
           <Tooltip title='Retry'>
             <IconButton aria-label='retry' size='small' onClick={onRetry}>
               <ReplayIcon />
